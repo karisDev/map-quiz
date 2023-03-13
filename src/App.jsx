@@ -1,17 +1,27 @@
-import { useState } from "react";
 import EnterName from "./EnterName";
-import PickAPoint from "./PickAPoint";
 import AdminPanel from "./AdminPanel";
+import Map from "./Map";
+import { useState } from "react";
 
 function App() {
-  const [admin, setAdmin] = useState(true);
-  const [name, setName] = useState("");
-  const [isNameEntered, setIsNameEntered] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [isGame, setIsGame] = useState(false);
 
-  return (
-    <>
-      {admin ? <AdminPanel /> : isNameEntered ? <PickAPoint /> : <EnterName />}
-    </>
+  const onNameEnter = (name) => {
+    if (name === "karis") {
+      setIsAdmin(true);
+    }
+    if (name.length > 0) {
+      setIsGame(true);
+    }
+  };
+
+  return isAdmin ? (
+    <AdminPanel />
+  ) : isGame ? (
+    <EnterName onNameEnter={onNameEnter} />
+  ) : (
+    <Map />
   );
 }
 
