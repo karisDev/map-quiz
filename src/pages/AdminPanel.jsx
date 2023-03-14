@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
+import Question from "../components/Question";
 import { socket } from "../service/socket";
 
 const AdminPanel = () => {
@@ -64,6 +65,7 @@ const AdminPanel = () => {
           );
         })}
       </div>
+      <Question />
     </div>
   );
 };

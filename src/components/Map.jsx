@@ -10,6 +10,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import checkPng from "../assets/icons/check.png";
+import { useEffect } from "react";
 
 function Map({ correctPosition, position, setPosition }) {
   function Events() {
@@ -18,6 +19,11 @@ function Map({ correctPosition, position, setPosition }) {
         setPosition(e.latlng);
       },
     });
+
+    if (correctPosition && position) {
+      const bounds = L.latLngBounds([correctPosition, position]);
+      map.fitBounds(bounds);
+    }
   }
 
   return (

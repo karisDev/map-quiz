@@ -24,7 +24,9 @@ function calculateScore(correctPoint, selectedPoint) {
   // Calculate the score based on the distance
   let score;
 
-  if (distance < 10) {
+  const accuracy = 2.5;
+
+  if (distance < accuracy) {
     // Exact match
     score = maxScore;
   } else if (distance < usScale.minDistance) {

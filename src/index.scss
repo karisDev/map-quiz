@@ -110,7 +110,7 @@ body,
   grid-template-columns: 400px 1fr;
   grid-template-rows: 1fr 100px;
   grid-template-areas:
-    "players quiestion"
+    "players question"
     "players controls";
   .players {
     grid-area: players;
@@ -178,5 +178,17 @@ body,
       display: inline-block;
       margin-right: 10px;
     }
+  }
+  .question {
+    height: 100%;
+    grid-area: question;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 0;
   }
 }
