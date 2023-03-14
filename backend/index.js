@@ -25,7 +25,6 @@ io.on("connection", (socket) => {
       players.splice(playerIndex, 1);
     }
 
-    console.log("disconnect", players);
     io.emit("players", players);
   });
 
@@ -41,7 +40,6 @@ io.on("connection", (socket) => {
       players.push({ id: playerId, name: playerName, score: 0 });
     }
 
-    console.log("join", players);
     io.emit("players", players);
   });
 
@@ -54,7 +52,6 @@ io.on("connection", (socket) => {
       io.emit("players", players);
     }
 
-    console.log("deletePLayers", players);
     io.emit("players", players);
   });
 
@@ -68,7 +65,6 @@ io.on("connection", (socket) => {
       players[playerIndex].answered = true;
     }
 
-    console.log("coords", players);
     io.emit("players", players);
   });
 });

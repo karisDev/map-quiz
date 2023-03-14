@@ -11,24 +11,13 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import checkPng from "./assets/icons/check.png";
 
-function Map({ submitCoords }) {
-  const [position, setPosition] = useState(null);
-  const [correctPosition, setCorrectPosition] = useState({
-    lat: 36.8041216674974,
-    lng: -84.71531164701229,
-  });
-
+function Map({ correctPosition, position, setPosition }) {
   function Events() {
     const map = useMapEvents({
       click: (e) => {
-        console.log(e.latlng);
         setPosition(e.latlng);
       },
     });
-  }
-
-  function handleMapClick(e) {
-    setPosition(e.latlng);
   }
 
   return (
@@ -65,14 +54,6 @@ function Map({ submitCoords }) {
           />
         )}
       </MapContainer>
-      <button
-        className="mapSubmit"
-        onClick={() => {
-          submitCoords(position);
-        }}
-      >
-        Confirm Choice
-      </button>
     </>
   );
 }

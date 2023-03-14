@@ -11,22 +11,35 @@ const GameStates = {
 function Game({ name }) {
   const [gameState, setGameState] = useState(GameStates.Map);
   const [selectedCoords, setSelectedCoords] = useState(null);
-  const [correctCoords, setCorrectCoords] = useState(null);
+  const [correctCoords, setCorrectCoords] = useState({
+    lat: 36.8041216674974,
+    lng: -84.71531164701229,
+  });
 
   useEffect(() => {
     socket.emit("join", name);
   }, [name]);
 
-  const onSubmitCoords = (cords) => {
-    if (cords === null) return;
+  const onSubmitCoords = () => {
+    if (selectedCoords === null) return;
 
-    console.log(cords);
-    socket.emit("coords", cords);
+    socket.emit("coords", selectedCoords);
   };
 
   return (
     <>
-      {gameState === GameStates.Map && <Map submitCoords={onSubmitCoords} />}
+      {gameState === GameStates.Map && (
+        <>
+          <Map
+            position={selectedCoords}
+            setPosition={setSelectedCoords}
+            correctPosition={correctCoords}
+          />
+          <button className="mapSubmit" onClick={onSubmitCoords}>
+            Confirm Choice
+          </button>
+        </>
+      )}
       {gameState === GameStates.Wait && <h1>Waiting for other players</h1>}
     </>
   );
