@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Map from "./Map";
-import io from "socket.io-client";
 import { socket } from "./service/socket";
 import { useEffect } from "react";
 
@@ -11,9 +10,10 @@ const GameStates = {
 
 function Game({ name }) {
   const [gameState, setGameState] = useState(GameStates.Map);
+  const [selectedCoords, setSelectedCoords] = useState(null);
+  const [correctCoords, setCorrectCoords] = useState(null);
 
   useEffect(() => {
-    console.log(name);
     socket.emit("join", name);
   }, [name]);
 
@@ -21,13 +21,13 @@ function Game({ name }) {
     if (cords === null) return;
 
     console.log(cords);
-    socket.emit("cords", cords);
+    socket.emit("coords", cords);
   };
 
   return (
     <>
       {gameState === GameStates.Map && <Map submitCoords={onSubmitCoords} />}
-      {gameState === GameStates.Wait && <h1>Ожидание других игроков</h1>}
+      {gameState === GameStates.Wait && <h1>Waiting for other players</h1>}
     </>
   );
 }

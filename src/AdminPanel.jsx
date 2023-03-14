@@ -6,7 +6,6 @@ import { socket } from "./service/socket";
 
 const AdminPanel = () => {
   const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
-  socket.emit("join", "Karis");
 
   socket.on("connect_error", (err) => {
     console.log(err);
@@ -31,11 +30,14 @@ const AdminPanel = () => {
     socket.emit("deletePlayer", id);
   };
 
+  useEffect(() => {
+    socket.emit("join", "Karis");
+  }, []);
+
   return (
     <div className="adminPanel">
       <div className="players">
         <p className="playersTitle">Players</p>
-        {/* add button to delete */}
         {players.map((player) => {
           return (
             <div className="player" key={player.id}>
@@ -44,14 +46,20 @@ const AdminPanel = () => {
               ) : (
                 <div className="redCircle"></div>
               )}
-              <p className="playerName">{player.name}</p>
-              <p className="playerScore">Score: {player.score}</p>
-              <button
-                className="playerDelete"
-                onClick={() => deletePlayer(player.id)}
-              >
-                X
-              </button>
+              <p className="playerName">
+                {player.name === "Karis" ? "karisDev (admin)" : player.name}
+              </p>
+              {player.name !== "Karis" && (
+                <>
+                  <p className="playerScore">Score: {player.score}</p>
+                  <button
+                    className="playerDelete"
+                    onClick={() => deletePlayer(player.id)}
+                  >
+                    X
+                  </button>
+                </>
+              )}
             </div>
           );
         })}

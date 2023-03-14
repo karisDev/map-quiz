@@ -18,8 +18,14 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     const playerId = socket.handshake.auth.playerId;
-    players.splice(playerId, 1);
 
+    const playerIndex = players.findIndex((player) => player.id === playerId);
+
+    if (playerIndex !== -1) {
+      players.splice(playerIndex, 1);
+    }
+
+    console.log("disconnect", players);
     io.emit("players", players);
   });
 
@@ -35,6 +41,7 @@ io.on("connection", (socket) => {
       players.push({ id: playerId, name: playerName, score: 0 });
     }
 
+    console.log("join", players);
     io.emit("players", players);
   });
 
@@ -47,13 +54,23 @@ io.on("connection", (socket) => {
       io.emit("players", players);
     }
 
+    console.log("deletePLayers", players);
     io.emit("players", players);
   });
-});
 
-io.on("cords", (data) => {
-  console.log(data);
-  console.log(socket.handshake.auth.sid);
+  socket.on("coords", (coords) => {
+    const playerId = socket.handshake.auth.playerId;
+
+    // add score to player
+    const playerIndex = players.findIndex((player) => player.id === playerId);
+
+    if (playerIndex !== -1) {
+      players[playerIndex].answered = true;
+    }
+
+    console.log("coords", players);
+    io.emit("players", players);
+  });
 });
 
 server.listen(3000, () => {
