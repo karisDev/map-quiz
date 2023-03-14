@@ -58,32 +58,47 @@ const questionPool = [
 ];
 
 const Question = ({ onRevealAnswer }) => {
-  const [question, setQuestion] = useState(questionPool[0].question);
+  const [question, setQuestion] = useState(questionPool[0]);
 
   const nextQuestion = () => {
-    const index = questionPool.findIndex((q) => q.question === question);
-    if (index === questionPool.length - 1) {
-      setQuestion(questionPool[0].question);
-    } else {
-      setQuestion(questionPool[index + 1].question);
+    const nextQuestionIndex = questionPool.indexOf(question) + 1;
+    if (nextQuestionIndex < questionPool.length) {
+      setQuestion(questionPool[nextQuestionIndex]);
     }
   };
 
   const prevQuestion = () => {
-    const index = questionPool.findIndex((q) => q.question === question);
-    if (index === 0) {
-      setQuestion(questionPool[questionPool.length - 1].question);
-    } else {
-      setQuestion(questionPool[index - 1].question);
+    const prevQuestionIndex = questionPool.indexOf(question) - 1;
+    if (prevQuestionIndex >= 0) {
+      setQuestion(questionPool[prevQuestionIndex]);
     }
   };
 
   const revealAnswer = () => {
-    const index = questionPool.findIndex((q) => q.question === question);
-    onRevealAnswer(questionPool[index].answer);
+    onRevealAnswer(question.answer);
   };
 
-  return <div className="question">Question</div>;
+  return (
+    <div className="question">
+      <div className="question__header">
+        <h2 className="question__title">{question.question}</h2>
+      </div>
+      <div className="question__body">
+        <img className="question__img" src={question.imgSrc} alt={question} />
+      </div>
+      <div className="question__footer">
+        <button className="question__btn" onClick={prevQuestion}>
+          Prev
+        </button>
+        <button className="question__btn" onClick={revealAnswer}>
+          Reveal Answer
+        </button>
+        <button className="question__btn" onClick={nextQuestion}>
+          Next
+        </button>
+      </div>
+    </div>
+  );
 };
 
 export default Question;
