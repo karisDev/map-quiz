@@ -37,6 +37,18 @@ io.on("connection", (socket) => {
 
     io.emit("players", players);
   });
+
+  socket.on("deletePlayer", (playerId) => {
+    const playerIndex = players.findIndex((player) => player.id === playerId);
+
+    if (playerIndex !== -1) {
+      players.splice(playerIndex, 1);
+
+      io.emit("players", players);
+    }
+
+    io.emit("players", players);
+  });
 });
 
 io.on("cords", (data) => {
