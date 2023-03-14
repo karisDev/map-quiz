@@ -1,20 +1,28 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import AdminMap from "../components/AdminMap";
 import Question from "../components/Question";
 import { socket } from "../service/socket";
 
 const AdminPanel = () => {
   const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
   const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const [hideScores, setHideScores] = useState(false);
+  const [correctPoint, setCorrectPoint] = useState(null);
 
   socket.on("connect_error", (err) => {
     console.log(err);
   });
 
   socket.on("players", (data) => {
+    console.log(data);
     setPlayers(data);
+  });
+
+  socket.on("revealAnswer", (data) => {
+    setCorrectPoint(data);
   });
 
   socket.on("playerAnswered", (data) => {
@@ -94,8 +102,14 @@ const AdminPanel = () => {
         >
           {showLeaderboard ? "Hide" : "Show"} leaderboard
         </button>
+        <button
+          className="showLeaderboard"
+          onClick={() => setShowMap(!showMap)}
+        >
+          {showMap ? "Hide" : "Show"} map
+        </button>
       </div>
-      {showLeaderboard ? (
+      {showLeaderboard && (
         <div className="leaderboard">
           <p className="leaderboardTitle">Leaderboard</p>
           {players
@@ -117,9 +131,31 @@ const AdminPanel = () => {
               );
             })}
         </div>
-      ) : (
-        <Question onRevealAnswer={revealAnswer} resetState={resetState} />
       )}
+      {showMap && players && (
+        <AdminMap
+          pointsToShow={players.map((player) => {
+            if (!player.selectedCoords) {
+              return {
+                position: [0, 0],
+                name: player.name,
+              };
+            }
+            return {
+              position: player.selectedCoords,
+              name: player.name,
+            };
+          })}
+          correctPoint={correctPoint ? correctPoint : [0, 0]}
+        />
+      )}
+      <div
+        style={{
+          display: showLeaderboard || showMap ? "none" : "block",
+        }}
+      >
+        <Question onRevealAnswer={revealAnswer} resetState={resetState} />
+      </div>
     </div>
   );
 };
