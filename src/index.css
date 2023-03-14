@@ -92,10 +92,6 @@ body,
   position: relative;
 }
 
-.map svg {
-  /* display: none !important; */
-}
-
 .enterName_bg {
   position: absolute;
   top: 0;

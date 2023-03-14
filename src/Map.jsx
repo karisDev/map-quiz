@@ -25,7 +25,6 @@ function Map({ submitCoords }) {
         setPosition(e.latlng);
       },
     });
-    console.log(L);
   }
 
   function handleMapClick(e) {
@@ -39,7 +38,7 @@ function Map({ submitCoords }) {
         <Events />
         {position && (
           <Marker position={position}>
-            <Popup>You are here</Popup>
+            <Popup>Your guess</Popup>
           </Marker>
         )}
         {correctPosition && (

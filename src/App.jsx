@@ -1,11 +1,12 @@
 import EnterName from "./EnterName";
 import AdminPanel from "./AdminPanel";
-import Map from "./Map";
 import { useState } from "react";
+import Game from "./Game";
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isGame, setIsGame] = useState(false);
+  const [name, setName] = useState("");
 
   const onNameEnter = (name) => {
     if (name === "karis") {
@@ -21,7 +22,7 @@ function App() {
   ) : isGame ? (
     <EnterName onNameEnter={onNameEnter} />
   ) : (
-    <Map />
+    <Game name={name} />
   );
 }
 
