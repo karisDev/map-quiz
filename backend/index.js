@@ -17,6 +17,7 @@ io.on("connection", (socket) => {
   }
 
   socket.on("disconnect", () => {
+    // delete players if needed
     const playerId = socket.handshake.auth.playerId;
 
     const playerIndex = players.findIndex((player) => player.id === playerId);

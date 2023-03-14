@@ -10,12 +10,12 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import checkPng from "../assets/icons/check.png";
-import { useEffect } from "react";
 
 function Map({ correctPosition, position, setPosition }) {
   function Events() {
     const map = useMapEvents({
       click: (e) => {
+        if (correctPosition) return;
         setPosition(e.latlng);
       },
     });

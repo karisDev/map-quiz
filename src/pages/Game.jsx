@@ -13,6 +13,7 @@ function Game({ name }) {
 
     socket.on("revealAnswer", (data) => {
       setCorrectCoords(data);
+      setWaiting(true);
     });
 
     socket.on("resetState", () => {
