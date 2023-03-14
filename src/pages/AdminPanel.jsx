@@ -31,6 +31,14 @@ const AdminPanel = () => {
     socket.emit("deletePlayer", id);
   };
 
+  const revealAnswer = (answer) => {
+    socket.emit("revealAnswer", answer);
+  };
+
+  const resetState = () => {
+    socket.emit("resetState");
+  };
+
   useEffect(() => {
     socket.emit("join", "Karis");
   }, []);
@@ -52,7 +60,13 @@ const AdminPanel = () => {
               </p>
               {player.name !== "Karis" && (
                 <>
-                  <p className="playerScore">Score: {player.score}</p>
+                  <p className="playerScore">
+                    Score:{" "}
+                    {
+                      // оставить целую часть
+                      player.score - (player.score % 1)
+                    }
+                  </p>
                   <button
                     className="playerDelete"
                     onClick={() => deletePlayer(player.id)}
@@ -65,7 +79,7 @@ const AdminPanel = () => {
           );
         })}
       </div>
-      <Question />
+      <Question onRevealAnswer={revealAnswer} resetState={resetState} />
     </div>
   );
 };

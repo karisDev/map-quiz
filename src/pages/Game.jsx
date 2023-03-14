@@ -6,13 +6,20 @@ import { useEffect } from "react";
 function Game({ name }) {
   const [waiting, setWaiting] = useState(false);
   const [selectedCoords, setSelectedCoords] = useState(null);
-  const [correctCoords, setCorrectCoords] = useState({
-    lat: 36.8041216674974,
-    lng: -84.71531164701229,
-  });
+  const [correctCoords, setCorrectCoords] = useState();
 
   useEffect(() => {
     socket.emit("join", name);
+
+    socket.on("revealAnswer", (data) => {
+      setCorrectCoords(data);
+    });
+
+    socket.on("resetState", () => {
+      setCorrectCoords(null);
+      setWaiting(false);
+      setSelectedCoords(null);
+    });
   }, [name]);
 
   const onSubmitCoords = () => {

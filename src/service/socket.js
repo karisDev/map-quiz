@@ -18,3 +18,5 @@ export const socket = io(import.meta.env.VITE_SOCKETIO_HOST, {
     playerId: localStorage.getItem("uuid"),
   },
 });
+
+export const playerId = localStorage.getItem("uuid");

@@ -69,6 +69,30 @@ io.on("connection", (socket) => {
     console.log(players);
     io.emit("players", players);
   });
+
+  socket.on("revealAnswer", (answer) => {
+    console.log(answer);
+
+    // calculate score
+    players.forEach((player) => {
+      if (player.answered) {
+        player.score += calculateScrore(answer, player.selectedCoords);
+      }
+    });
+
+    io.emit("revealAnswer", answer);
+    io.emit("players", players);
+  });
+
+  socket.on("resetState", () => {
+    players.forEach((player) => {
+      player.answered = false;
+      player.selectedCoords = null;
+    });
+
+    io.emit("resetState");
+    io.emit("players", players);
+  });
 });
 
 server.listen(3000, () => {

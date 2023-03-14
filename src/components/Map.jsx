@@ -24,6 +24,9 @@ function Map({ correctPosition, position, setPosition }) {
       const bounds = L.latLngBounds([correctPosition, position]);
       map.fitBounds(bounds);
     }
+    if (!correctPosition && !position) {
+      map.setView([37.8, -96], 4);
+    }
   }
 
   return (

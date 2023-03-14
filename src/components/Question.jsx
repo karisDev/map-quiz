@@ -57,7 +57,7 @@ const questionPool = [
   },
 ];
 
-const Question = ({ onRevealAnswer }) => {
+const Question = ({ onRevealAnswer, resetState }) => {
   const [question, setQuestion] = useState(questionPool[0]);
 
   const nextQuestion = () => {
@@ -75,7 +75,10 @@ const Question = ({ onRevealAnswer }) => {
   };
 
   const revealAnswer = () => {
-    onRevealAnswer(question.answer);
+    onRevealAnswer({
+      lat: question.answer[0],
+      lng: question.answer[1],
+    });
   };
 
   return (
@@ -92,6 +95,9 @@ const Question = ({ onRevealAnswer }) => {
         </button>
         <button className="question__btn" onClick={revealAnswer}>
           Reveal Answer
+        </button>
+        <button className="question__btn" onClick={resetState}>
+          Reset state
         </button>
         <button className="question__btn" onClick={nextQuestion}>
           Next
