@@ -9,7 +9,7 @@ const GameStates = {
 
 function Game({ name }) {
   const [gameState, setGameState] = useState(GameStates.Map);
-  const socket = io("http://localhost:3000", {
+  const socket = io(import.meta.env.VITE_SOCKETIO_HOST, {
     transports: ["websocket"],
   });
 

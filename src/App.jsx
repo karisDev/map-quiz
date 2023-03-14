@@ -4,7 +4,7 @@ import { useState } from "react";
 import Game from "./Game";
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const [isGame, setIsGame] = useState(false);
   const [name, setName] = useState("");
 
@@ -20,9 +20,9 @@ function App() {
   return isAdmin ? (
     <AdminPanel />
   ) : isGame ? (
-    <EnterName onNameEnter={onNameEnter} />
-  ) : (
     <Game name={name} />
+  ) : (
+    <EnterName onNameEnter={onNameEnter} />
   );
 }
 
