@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
-const players = {};
+const players = [];
 
 io.on("connection", (socket) => {
   if (socket.handshake.auth.playerId) {
@@ -17,14 +17,18 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     const playerId = socket.handshake.auth.playerId;
-    delete players[playerId];
+    players.splice(playerId, 1);
 
     io.emit("players", players);
   });
 
   socket.on("join", (playerName) => {
     const playerId = socket.handshake.auth.playerId;
-    players[playerId] = playerName;
+    if (players.find((player) => player.id === playerId)) {
+      return;
+    }
+
+    players.push({ id: playerId, name: playerName, score: 0 });
 
     io.emit("players", players);
   });

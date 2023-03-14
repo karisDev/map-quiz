@@ -5,10 +5,11 @@ import { io } from "socket.io-client";
 import { socket } from "./service/socket";
 
 const AdminPanel = () => {
+  const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
   socket.on("connect", () => {
     console.log("Connected to server");
 
-    socket.emit("join", "test");
+    socket.emit("join", "Karis");
   });
 
   socket.on("connect_error", (err) => {
@@ -16,12 +17,49 @@ const AdminPanel = () => {
   });
 
   socket.on("players", (data) => {
-    console.log(data);
+    setPlayers(data);
   });
 
+  socket.on("playerAnswered", (data) => {
+    setPlayers((prev) => {
+      return prev.map((player) => {
+        if (player.id === data.id) {
+          return { ...player, answered: true };
+        }
+        return player;
+      });
+    });
+  });
+
+  const deletePlayer = (id) => {
+    socket.emit("deletePlayer", id);
+  };
+
   return (
-    <div>
-      <button>show answer</button>
+    <div className="adminPanel">
+      <div className="players">
+        <p className="playersTitle">Players</p>
+        {/* add button to delete */}
+        {players.map((player) => {
+          return (
+            <div className="player" key={player.id}>
+              {player.answered ? (
+                <div className="greenCircle"></div>
+              ) : (
+                <div className="redCircle"></div>
+              )}
+              <p className="playerName">{player.name}</p>
+              <p className="playerScore">Score: {player.score}</p>
+              <button
+                className="playerDelete"
+                onClick={() => deletePlayer(player.id)}
+              >
+                X
+              </button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
