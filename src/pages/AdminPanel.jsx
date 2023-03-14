@@ -1,12 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { io } from "socket.io-client";
 import Question from "../components/Question";
 import { socket } from "../service/socket";
 
 const AdminPanel = () => {
   const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
+  const [showLeaderboard, setShowLeaderboard] = useState(false);
+  const [hideScores, setHideScores] = useState(false);
 
   socket.on("connect_error", (err) => {
     console.log(err);
@@ -60,13 +61,15 @@ const AdminPanel = () => {
               </p>
               {player.name !== "Karis" && (
                 <>
-                  <p className="playerScore">
-                    Score:{" "}
-                    {
-                      // оставить целую часть
-                      player.score - (player.score % 1)
-                    }
-                  </p>
+                  {!hideScores && (
+                    <p className="playerScore">
+                      Score:{" "}
+                      {
+                        // оставить целую часть
+                        player.score - (player.score % 1)
+                      }
+                    </p>
+                  )}
                   <button
                     className="playerDelete"
                     onClick={() => deletePlayer(player.id)}
@@ -78,8 +81,44 @@ const AdminPanel = () => {
             </div>
           );
         })}
+
+        <button
+          className="hideScores"
+          onClick={() => setHideScores(!hideScores)}
+        >
+          {hideScores ? "Show" : "Hide"} scores
+        </button>
+        <button
+          className="showLeaderboard"
+          onClick={() => setShowLeaderboard(!showLeaderboard)}
+        >
+          {showLeaderboard ? "Hide" : "Show"} leaderboard
+        </button>
       </div>
-      <Question onRevealAnswer={revealAnswer} resetState={resetState} />
+      {showLeaderboard ? (
+        <div className="leaderboard">
+          <p className="leaderboardTitle">Leaderboard</p>
+          {players
+            .sort((a, b) => b.score - a.score)
+            .map((player, index) => {
+              return (
+                <div className="player" key={player.id}>
+                  <p className="playerName">
+                    <span>#{index + 1}</span> {player.name}
+                  </p>
+                  <p className="playerScore">
+                    {
+                      // оставить целую часть
+                      player.score - (player.score % 1)
+                    }
+                  </p>
+                </div>
+              );
+            })}
+        </div>
+      ) : (
+        <Question onRevealAnswer={revealAnswer} resetState={resetState} />
+      )}
     </div>
   );
 };
