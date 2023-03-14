@@ -6,11 +6,7 @@ import { socket } from "./service/socket";
 
 const AdminPanel = () => {
   const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
-  socket.on("connect", () => {
-    console.log("Connected to server");
-
-    socket.emit("join", "Karis");
-  });
+  socket.emit("join", "Karis");
 
   socket.on("connect_error", (err) => {
     console.log(err);

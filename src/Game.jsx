@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Map from "./Map";
 import io from "socket.io-client";
+import { socket } from "./service/socket";
+import { useEffect } from "react";
 
 const GameStates = {
   Map: "PickAPoint",
@@ -9,17 +11,11 @@ const GameStates = {
 
 function Game({ name }) {
   const [gameState, setGameState] = useState(GameStates.Map);
-  const socket = io(import.meta.env.VITE_SOCKETIO_HOST, {
-    transports: ["websocket"],
-  });
 
-  socket.on("connect", () => {
-    console.log("Connected to server");
-  });
-
-  socket.on("connect_error", (err) => {
-    console.log(err);
-  });
+  useEffect(() => {
+    console.log(name);
+    socket.emit("join", name);
+  }, [name]);
 
   const onSubmitCoords = (cords) => {
     if (cords === null) return;

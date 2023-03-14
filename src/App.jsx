@@ -4,7 +4,7 @@ import { useState } from "react";
 import Game from "./Game";
 
 function App() {
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
   const [isGame, setIsGame] = useState(false);
   const [name, setName] = useState("");
 
@@ -15,6 +15,7 @@ function App() {
     if (name.length > 0) {
       setIsGame(true);
     }
+    console.log(name);
   };
 
   return isAdmin ? (
