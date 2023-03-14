@@ -31,11 +31,18 @@ function Game({ name }) {
     socket.emit("coords", selectedCoords);
   };
 
+  const updatePosition = (position) => {
+    if (waiting) return;
+    if (correctCoords) return;
+
+    setSelectedCoords(position);
+  };
+
   return (
     <>
       <Map
         position={selectedCoords}
-        setPosition={setSelectedCoords}
+        setPosition={updatePosition}
         correctPosition={correctCoords}
       />
       <button className="mapSubmit" disabled={waiting} onClick={onSubmitCoords}>

@@ -100,6 +100,7 @@ const AdminPanel = () => {
           <p className="leaderboardTitle">Leaderboard</p>
           {players
             .sort((a, b) => b.score - a.score)
+            .filter((player) => player.name !== "Karis")
             .map((player, index) => {
               return (
                 <div className="player" key={player.id}>

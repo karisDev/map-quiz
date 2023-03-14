@@ -295,11 +295,14 @@ body,
         font-weight: 500;
         font-weight: bold;
         span {
+          font-size: 24px;
           font-weight: normal;
         }
       }
       .playerScore {
         margin-right: 10px;
+        font-size: 24px;
+        font-weight: bold;
       }
       &:nth-of-type(1) {
         background-color: #fbae3c;
@@ -311,9 +314,6 @@ body,
       &:nth-of-type(3) {
         background-color: #3d3056;
         color: #fff;
-      }
-      &:last-child {
-        // display: none;
       }
     }
   }

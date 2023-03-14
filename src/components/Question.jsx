@@ -97,7 +97,7 @@ const Question = ({ onRevealAnswer, resetState }) => {
           Reveal Answer
         </button>
         <button className="question__btn" onClick={resetState}>
-          Reset state
+          Reset markers
         </button>
         <button className="question__btn" onClick={nextQuestion}>
           Next

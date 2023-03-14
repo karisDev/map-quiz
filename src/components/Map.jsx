@@ -15,7 +15,6 @@ function Map({ correctPosition, position, setPosition }) {
   function Events() {
     const map = useMapEvents({
       click: (e) => {
-        if (correctPosition) return;
         setPosition(e.latlng);
       },
     });
