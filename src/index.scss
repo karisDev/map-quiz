@@ -93,6 +93,10 @@ body,
   font-size: 18px;
   text-transform: uppercase;
   outline: none;
+  &:disabled {
+    background-color: #041220;
+    cursor: not-allowed;
+  }
 }
 
 .map {

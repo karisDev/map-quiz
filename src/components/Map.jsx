@@ -9,7 +9,7 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import checkPng from "./assets/icons/check.png";
+import checkPng from "../assets/icons/check.png";
 
 function Map({ correctPosition, position, setPosition }) {
   function Events() {

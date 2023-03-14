@@ -1,7 +1,7 @@
-import EnterName from "./EnterName";
-import AdminPanel from "./AdminPanel";
+import EnterName from "./pages/EnterName";
+import AdminPanel from "./pages/AdminPanel";
 import { useState } from "react";
-import Game from "./Game";
+import Game from "./pages/Game";
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);

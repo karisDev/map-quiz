@@ -56,6 +56,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("coords", (coords) => {
+    console.log(coords);
     const playerId = socket.handshake.auth.playerId;
 
     // add score to player
@@ -63,8 +64,9 @@ io.on("connection", (socket) => {
 
     if (playerIndex !== -1) {
       players[playerIndex].answered = true;
+      players[playerIndex].selectedCoords = coords;
     }
-
+    console.log(players);
     io.emit("players", players);
   });
 });

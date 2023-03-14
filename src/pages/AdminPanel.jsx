@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
-import { socket } from "./service/socket";
+import { socket } from "../service/socket";
 
 const AdminPanel = () => {
   const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
