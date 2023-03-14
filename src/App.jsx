@@ -9,13 +9,13 @@ function App() {
   const [name, setName] = useState("");
 
   const onNameEnter = (name) => {
+    setName(name);
     if (name === "karis") {
       setIsAdmin(true);
     }
     if (name.length > 0) {
       setIsGame(true);
     }
-    console.log(name);
   };
 
   return isAdmin ? (

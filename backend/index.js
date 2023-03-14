@@ -25,11 +25,15 @@ io.on("connection", (socket) => {
 
   socket.on("join", (playerName) => {
     const playerId = socket.handshake.auth.playerId;
-    if (players.find((player) => player.id === playerId)) {
-      return;
-    }
 
-    players.push({ id: playerId, name: playerName, score: 0 });
+    // get index of a player with the same id
+    const playerIndex = players.findIndex((player) => player.id === playerId);
+
+    if (playerIndex !== -1) {
+      players[playerIndex].name = playerName;
+    } else {
+      players.push({ id: playerId, name: playerName, score: 0 });
+    }
 
     io.emit("players", players);
   });
