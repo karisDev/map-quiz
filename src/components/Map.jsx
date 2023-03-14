@@ -10,6 +10,7 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import checkPng from "../assets/icons/check.png";
+import markPng from "../assets/icons/mark.png";
 
 function Map({ correctPosition, position, setPosition }) {
   function Events() {
@@ -34,7 +35,19 @@ function Map({ correctPosition, position, setPosition }) {
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         <Events />
         {position && (
-          <Marker position={position}>
+          <Marker
+            position={position}
+            icon={
+              new L.Icon({
+                iconUrl: markPng,
+                shadowUrl:
+                  "https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png",
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+              })
+            }
+          >
             <Popup>Your guess</Popup>
           </Marker>
         )}
