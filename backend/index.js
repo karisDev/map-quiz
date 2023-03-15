@@ -57,7 +57,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("coords", (coords) => {
-    console.log(coords);
     const playerId = socket.handshake.auth.playerId;
 
     // add score to player
@@ -67,13 +66,10 @@ io.on("connection", (socket) => {
       players[playerIndex].answered = true;
       players[playerIndex].selectedCoords = coords;
     }
-    console.log(players);
     io.emit("players", players);
   });
 
   socket.on("revealAnswer", (answer) => {
-    console.log(answer);
-
     // calculate score
     players.forEach((player) => {
       if (player.answered) {
@@ -96,6 +92,7 @@ io.on("connection", (socket) => {
   });
 });
 
-server.listen(3000, () => {
-  console.log("listening on *:3000");
+const port = 50911;
+server.listen(port, () => {
+  console.log(`listening on *:${port}`);
 });
