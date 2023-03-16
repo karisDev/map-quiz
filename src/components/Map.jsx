@@ -22,7 +22,7 @@ function Map({ correctPosition, position, setPosition }) {
 
     if (correctPosition && position) {
       const bounds = L.latLngBounds([correctPosition, position]);
-      map.fitBounds(bounds);
+      map.fitBounds(bounds, { padding: [10, 75] });
     }
     if (!correctPosition && !position) {
       map.setView([37.8, -96], 4);

@@ -5,7 +5,7 @@ import AdminMap from "../components/AdminMap";
 import Question from "../components/Question";
 import { socket } from "../service/socket";
 
-const AdminPanel = () => {
+const AdminPanel = ({ roomId }) => {
   const [players, setPlayers] = useState([]); // {name: "test", id: "test", answered: false}
   const [showLeaderboard, setShowLeaderboard] = useState(false);
   const [showMap, setShowMap] = useState(false);
@@ -17,23 +17,13 @@ const AdminPanel = () => {
   });
 
   socket.on("players", (data) => {
-    console.log(data);
-    setPlayers(data);
+    const filteredPlayers = data.filter((player) => player.roomId === roomId);
+
+    setPlayers(filteredPlayers);
   });
 
   socket.on("revealAnswer", (data) => {
     setCorrectPoint(data);
-  });
-
-  socket.on("playerAnswered", (data) => {
-    setPlayers((prev) => {
-      return prev.map((player) => {
-        if (player.id === data.id) {
-          return { ...player, answered: true };
-        }
-        return player;
-      });
-    });
   });
 
   const deletePlayer = (id) => {
@@ -49,7 +39,7 @@ const AdminPanel = () => {
   };
 
   useEffect(() => {
-    socket.emit("join", "Karis");
+    socket.emit("join", { name: "karisDev (admin)", roomId: roomId });
   }, []);
 
   return (
@@ -65,9 +55,9 @@ const AdminPanel = () => {
                 <div className="redCircle"></div>
               )}
               <p className="playerName">
-                {player.name === "Karis" ? "karisDev (admin)" : player.name}
+                {player.name} {player.disconnected && "(disconnected)"}
               </p>
-              {player.name !== "Karis" && (
+              {player.name !== "karisDev (admin)" && (
                 <>
                   {!hideScores && (
                     <p className="playerScore">

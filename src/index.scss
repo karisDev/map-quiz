@@ -1,12 +1,9 @@
-@font-face {
-  font-family: "Roboto";
-  src: url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap");
-}
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap");
 
 * {
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
 }
 html,
@@ -41,13 +38,24 @@ body,
       font-weight: 500;
       margin-bottom: 20px;
     }
+    label {
+      user-select: none;
+      font-size: 14px;
+    }
     input {
       height: 40px;
       border: 1px solid #ccc;
       border-radius: 5px;
       padding: 0 10px;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       outline: none;
+      &:last-of-type {
+        margin-bottom: 20px;
+      }
+      &:disabled {
+        background-color: #ccc;
+        color: #282828;
+      }
     }
     button {
       height: 40px;

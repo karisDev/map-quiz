@@ -1,47 +1,98 @@
+import calculateScrore from "./calculateScore.js";
 import express from "express";
 const app = express();
 import { createServer } from "http";
 const server = createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server);
-import calculateScrore from "./calculateScore.js";
 
 const players = [];
+/*
+  players = [
+    {
+      id: "playerId",
+      name: "playerName",
+      score: 0,
+      roomId: "roomId",
+      answered: false,
+      selectedCoords: null,
+      roundScore: 0,
+      disconnected: false
+    }
+  ]
+ */
+
+const DELETE_PLAYER_TIMEOUT_MS = 5 * 60 * 1000; // 5 minutes
 
 io.on("connection", (socket) => {
-  if (socket.handshake.auth.playerId) {
-    socket.emit("connected", socket.id);
-  } else {
-    socket.emit("error", "No player id");
+  if (!socket.handshake.auth.playerId) {
+    socket.emit("error", "No playerId");
     socket.disconnect();
   }
 
+  // connect to the room if the player is already in it
+  const player = getPlayerById(socket.handshake.auth.playerId);
+
+  if (player) {
+    socket.join(player.roomId);
+  }
+  socket.emit("connected", socket.id);
+
   socket.on("disconnect", () => {
-    // delete players if needed
     const playerId = socket.handshake.auth.playerId;
 
-    const playerIndex = players.findIndex((player) => player.id === playerId);
+    const player = getPlayerById(playerId);
 
-    if (playerIndex !== -1) {
-      players.splice(playerIndex, 1);
+    if (player) {
+      player.disconnected = true;
+
+      setTimeout(() => {
+        console.log("ran timeout");
+        const player = getPlayerById(playerId);
+
+        if (player && player.disconnected) {
+          const playerIndex = players.findIndex(
+            (player) => player.id === playerId
+          );
+
+          players.splice(playerIndex, 1);
+
+          emitPlayers();
+        }
+      }, DELETE_PLAYER_TIMEOUT_MS);
     }
 
-    io.emit("players", players);
+    emitPlayers();
   });
 
-  socket.on("join", (playerName) => {
+  socket.on("join", (data) => {
     const playerId = socket.handshake.auth.playerId;
 
     // get index of a player with the same id
     const playerIndex = players.findIndex((player) => player.id === playerId);
 
     if (playerIndex !== -1) {
-      players[playerIndex].name = playerName;
+      players[playerIndex].name = data.name;
+      players[playerIndex].disconnected = false;
     } else {
-      players.push({ id: playerId, name: playerName, score: 0 });
+      players.push({
+        id: playerId,
+        name: data.name,
+        score: 0,
+        roomId: data.roomId,
+      });
     }
 
-    io.emit("players", players);
+    // disconnect from other rooms
+    Object.keys(socket.rooms).forEach((room) => {
+      if (room !== socket.id) {
+        socket.leave(room);
+      }
+    });
+    socket.join(data.roomId);
+    console.clear();
+    console.log(players);
+    emitPlayers();
   });
 
   socket.on("deletePlayer", (playerId) => {
@@ -49,50 +100,75 @@ io.on("connection", (socket) => {
 
     if (playerIndex !== -1) {
       players.splice(playerIndex, 1);
-
-      io.emit("players", players);
     }
 
-    io.emit("players", players);
+    emitPlayers();
   });
 
   socket.on("coords", (coords) => {
     const playerId = socket.handshake.auth.playerId;
 
-    // add score to player
     const playerIndex = players.findIndex((player) => player.id === playerId);
 
     if (playerIndex !== -1) {
       players[playerIndex].answered = true;
       players[playerIndex].selectedCoords = coords;
+
+      emitPlayers();
     }
-    io.emit("players", players);
   });
 
   socket.on("revealAnswer", (answer) => {
-    // calculate score
-    players.forEach((player) => {
+    const adminId = socket.handshake.auth.playerId;
+    const roomId = getRoomIdByPlayerId(adminId);
+    const roomPlayers = players.filter((p) => p.roomId === roomId);
+
+    roomPlayers.forEach((player) => {
       if (player.answered) {
-        player.score += calculateScrore(answer, player.selectedCoords);
+        const roundScore = calculateScrore(answer, player.selectedCoords);
+        player.score += roundScore;
+        player.roundScore = roundScore;
       }
     });
 
-    io.emit("revealAnswer", answer);
-    io.emit("players", players);
+    io.to(roomId).emit("revealAnswer", {
+      answer: answer,
+    });
+    emitPlayers();
   });
 
   socket.on("resetState", () => {
-    players.forEach((player) => {
+    const adminId = socket.handshake.auth.playerId;
+    const roomId = getRoomIdByPlayerId(adminId);
+    const roomPlayers = players.filter((p) => p.roomId === roomId);
+
+    roomPlayers.forEach((player) => {
       player.answered = false;
       player.selectedCoords = null;
+      player.roundScore = 0;
     });
 
-    io.emit("resetState");
-    io.emit("players", players);
+    io.to(roomId).emit("resetState");
+    emitPlayers();
   });
 });
 
-const port = 50911;
+function getPlayerById(playerId) {
+  return players.find((p) => p.id === playerId);
+}
+
+function getRoomIdByPlayerId(playerId) {
+  return players.find((p) => p.id === playerId).roomId;
+}
+
+// emit players array
+function emitPlayers() {
+  console.clear();
+  console.log(players);
+  io.emit("players", players);
+}
+
+const port = 3001;
 server.listen(port, () => {
   console.log(`listening on *:${port}`);
 });

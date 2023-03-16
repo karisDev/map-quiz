@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { useState } from "react";
 
-const EnterName = ({ onNameEnter }) => {
+const EnterName = ({ nameSubmit, initialRoomId }) => {
   const [name, setName] = useState("");
+  const [roomId, setRoomId] = useState(initialRoomId || "");
 
   return (
     <>
@@ -86,13 +88,23 @@ const EnterName = ({ onNameEnter }) => {
           className="enterName"
           onSubmit={(e) => {
             e.preventDefault();
-            onNameEnter(name);
+            nameSubmit(name, roomId);
           }}
         >
           <h1>English quiz</h1>
+          <label htmlFor="roomCode">Room code</label>
           <input
-            type="name"
-            placeholder="Write your name"
+            id="roomCode"
+            placeholder="Room code"
+            value={roomId}
+            disabled={initialRoomId ? true : false}
+            required
+            onChange={(e) => setRoomId(e.target.value)}
+          />
+          <label htmlFor="teamName">Team name</label>
+          <input
+            id="teamName"
+            placeholder="Write your team name"
             onChange={(e) => setName(e.target.value)}
             value={name}
           />
