@@ -51,16 +51,18 @@ function Game({ name, roomId }) {
   return (
     <>
       {showScores && (
-        <div className="scoresPopup">
-          <div className="header">
-            <h2>{playerInfo.name}</h2>
-            <span className="scoreIncrease">
-              +{playerInfo.roundScore - (playerInfo.roundScore % 1)}
-            </span>
+        <div className="scoresPopupWrapper">
+          <div className="scoresPopup">
+            <div className="header">
+              <h2>{playerInfo.name}</h2>
+              <span className="scoreIncrease">
+                +{playerInfo.roundScore - (playerInfo.roundScore % 1)}
+              </span>
+            </div>
+            <p className="totalScore">
+              Total score: {playerInfo.score - (playerInfo.score % 1)}
+            </p>
           </div>
-          <p className="totalScore">
-            Total score: {playerInfo.score - (playerInfo.score % 1)}
-          </p>
         </div>
       )}
       <Map
