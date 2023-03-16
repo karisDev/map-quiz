@@ -14,14 +14,14 @@ function Game({ name, roomId }) {
     socket.emit("join", { name: name, roomId: roomId });
 
     socket.on("revealAnswer", (data) => {
-      console.log("revealAnswer", data);
       setCorrectCoords(data.answer);
       setWaiting(true);
       setShowScores(true);
     });
 
-    socket.on("players", (data) => {
-      const player = data.players.find((p) => p.id === playerId);
+    socket.on("players", (players) => {
+      const player = players.find((p) => p.id === playerId);
+      console.log(player);
       setPlayerInfo(player);
     });
 
@@ -50,6 +50,19 @@ function Game({ name, roomId }) {
 
   return (
     <>
+      {showScores && (
+        <div className="scoresPopup">
+          <div className="header">
+            <h2>{playerInfo.name}</h2>
+            <span className="scoreIncrease">
+              +{playerInfo.roundScore - (playerInfo.roundScore % 1)}
+            </span>
+          </div>
+          <p className="totalScore">
+            Total score: {playerInfo.score - (playerInfo.score % 1)}
+          </p>
+        </div>
+      )}
       <Map
         position={selectedCoords}
         setPosition={updatePosition}

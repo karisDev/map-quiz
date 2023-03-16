@@ -30,7 +30,7 @@ io.on("connection", (socket) => {
     socket.disconnect();
   }
 
-  // connect to the room if the player is already in it
+  // connect to the room socket if the player is already in it
   const player = getPlayerById(socket.handshake.auth.playerId);
 
   if (player) {
