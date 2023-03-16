@@ -75,6 +75,9 @@ io.on("connection", (socket) => {
       players[playerIndex].name = data.name;
       players[playerIndex].disconnected = false;
     } else {
+      if (!data.name || !data.roomId) {
+        return;
+      }
       players.push({
         id: playerId,
         name: data.name,

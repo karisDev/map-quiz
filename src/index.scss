@@ -239,7 +239,7 @@ body,
       display: inline-block;
       margin-right: 10px;
     }
-    .showLeaderboard {
+    .mainButton {
       margin-top: 10px;
       cursor: pointer;
       text-transform: uppercase;
@@ -375,5 +375,16 @@ body,
         color: #fff;
       }
     }
+  }
+  .qrCode {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 24px;
+    background-color: #eee;
+    border-radius: 10px;
   }
 }
