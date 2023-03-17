@@ -1,8 +1,11 @@
-import EnterName from "./pages/EnterName";
-import AdminPanel from "./pages/AdminPanel";
 import { useState } from "react";
-import Game from "./pages/Game";
-import { useEffect } from "react";
+import { Suspense } from "react";
+import React from "react";
+import LoadingEllipsis from "./components/LoadingEllipsis";
+
+const AdminPanel = React.lazy(() => import("./pages/AdminPanel"));
+const Game = React.lazy(() => import("./pages/Game"));
+const EnterName = React.lazy(() => import("./pages/EnterName"));
 
 function App() {
   const urlParams = new URLSearchParams(window.location.search);
@@ -23,13 +26,18 @@ function App() {
       setIsGame(true);
     }
   };
-
   return isAdmin ? (
-    <AdminPanel roomId={roomId} />
+    <Suspense fallback={<LoadingEllipsis />}>
+      <AdminPanel roomId={roomId} />
+    </Suspense>
   ) : isGame ? (
-    <Game name={name} roomId={roomId} />
+    <Suspense fallback={<LoadingEllipsis />}>
+      <Game name={name} roomId={roomId} />
+    </Suspense>
   ) : (
-    <EnterName nameSubmit={onNameEnter} initialRoomId={initialRoomId} />
+    <Suspense fallback={<LoadingEllipsis />}>
+      <EnterName nameSubmit={onNameEnter} initialRoomId={initialRoomId} />
+    </Suspense>
   );
 }
 

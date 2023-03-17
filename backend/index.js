@@ -47,7 +47,6 @@ io.on("connection", (socket) => {
       player.disconnected = true;
 
       setTimeout(() => {
-        console.log("ran timeout");
         const player = getPlayerById(playerId);
 
         if (player && player.disconnected) {
@@ -58,6 +57,7 @@ io.on("connection", (socket) => {
           players.splice(playerIndex, 1);
 
           emitPlayers();
+          console.log("ran timeout");
         }
       }, DELETE_PLAYER_TIMEOUT_MS);
     }
@@ -73,6 +73,7 @@ io.on("connection", (socket) => {
 
     if (playerIndex !== -1) {
       players[playerIndex].name = data.name;
+      players[playerIndex].roomId = data.roomId;
       players[playerIndex].disconnected = false;
     } else {
       if (!data.name || !data.roomId) {

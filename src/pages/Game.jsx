@@ -54,7 +54,7 @@ function Game({ name, roomId }) {
         <div className="scoresPopupWrapper">
           <div className="scoresPopup">
             <div className="header">
-              <h2>{playerInfo.name}</h2>
+              <p className="teamName">{playerInfo.name}</p>
               <span className="scoreIncrease">
                 +{playerInfo.roundScore - (playerInfo.roundScore % 1)}
               </span>

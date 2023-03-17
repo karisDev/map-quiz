@@ -57,33 +57,27 @@ const AdminPanel = ({ roomId }) => {
         {players.map((player) => {
           return (
             <div className="player" key={player.id}>
-              {player.answered ? (
-                <div className="greenCircle"></div>
-              ) : (
-                <div className="redCircle"></div>
-              )}
+              <div
+                className={player.answered ? "greenCircle" : "redCircle"}
+              ></div>
               <p className="playerName">
                 {player.name} {player.disconnected && "(disconnected)"}
               </p>
-              {player.name !== "karisDev (admin)" && (
-                <>
-                  {!hideScores && (
-                    <p className="playerScore">
-                      Score:{" "}
-                      {
-                        // оставить целую часть
-                        player.score - (player.score % 1)
-                      }
-                    </p>
-                  )}
-                  <button
-                    className="playerDelete"
-                    onClick={() => deletePlayer(player.id)}
-                  >
-                    X
-                  </button>
-                </>
+              {!hideScores && (
+                <p className="playerScore">
+                  Score:{" "}
+                  {
+                    // оставить целую часть
+                    player.score - (player.score % 1)
+                  }
+                </p>
               )}
+              <button
+                className="playerDelete"
+                onClick={() => deletePlayer(player.id)}
+              >
+                X
+              </button>
             </div>
           );
         })}
