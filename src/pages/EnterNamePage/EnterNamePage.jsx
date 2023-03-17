@@ -1,7 +1,7 @@
-import { useEffect } from "react";
 import { useState } from "react";
+import "./enterNamePage.scss";
 
-const EnterName = ({ nameSubmit, initialRoomId }) => {
+const EnterNamePage = ({ nameSubmit, initialRoomId }) => {
   const [name, setName] = useState("");
   const [roomId, setRoomId] = useState(initialRoomId || "");
 
@@ -115,4 +115,4 @@ const EnterName = ({ nameSubmit, initialRoomId }) => {
   );
 };
 
-export default EnterName;
+export default EnterNamePage;

@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import AdminMap from "../components/AdminMap";
-import Question from "../components/Question";
-import { socket } from "../service/socket";
+import AdminMap from "../../components/AdminMap";
+import Question from "../../components/Question";
+import { socket } from "../../service/socket";
 import QRCode from "react-qr-code";
+import "./adminPage.scss";
 
 const views = {
   question: "question",
@@ -13,7 +14,7 @@ const views = {
   qrCode: "qrCode",
 };
 
-const AdminPanel = ({ roomId }) => {
+const AdminPage = ({ roomId }) => {
   const [players, setPlayers] = useState([]);
   const [view, setView] = useState(views.question);
 
@@ -179,4 +180,4 @@ const AdminPanel = ({ roomId }) => {
   );
 };
 
-export default AdminPanel;
+export default AdminPage;

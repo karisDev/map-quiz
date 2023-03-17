@@ -53,8 +53,11 @@
       background-color: #fff;
       color: #000;
       cursor: pointer;
+      transition: all 0.1s ease-out;
+      text-transform: uppercase;
       &:hover {
-        background-color: #ccc;
+        background-color: #4caf50;
+        color: #fff;
       }
     }
   }

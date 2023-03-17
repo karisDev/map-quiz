@@ -9,6 +9,7 @@
 html,
 body,
 #root {
+  background-color: #001220;
   height: 100%;
 }
 
@@ -28,7 +29,4 @@ body,
   display: none !important;
 }
 
-@import "adminPage";
-@import "enterNamePage";
-@import "gamePage";
 @import "loadingEllipsis";

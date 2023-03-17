@@ -3,9 +3,11 @@ import { Suspense } from "react";
 import React from "react";
 import LoadingEllipsis from "./components/LoadingEllipsis";
 
-const AdminPanel = React.lazy(() => import("./pages/AdminPanel"));
-const Game = React.lazy(() => import("./pages/Game"));
-const EnterName = React.lazy(() => import("./pages/EnterName"));
+const AdminPanel = React.lazy(() => import("./pages/AdminPanel/AdminPage"));
+const Game = React.lazy(() => import("./pages/GamePage/GamePage"));
+const EnterName = React.lazy(() =>
+  import("./pages/EnterNamePage/EnterNamePage")
+);
 
 function App() {
   const urlParams = new URLSearchParams(window.location.search);

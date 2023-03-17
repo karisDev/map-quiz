@@ -1,9 +1,10 @@
 import { useState } from "react";
-import Map from "../components/Map";
-import { playerId, socket } from "../service/socket";
+import Map from "../../components/Map";
+import { playerId, socket } from "../../service/socket";
 import { useEffect } from "react";
+import "./gamePage.scss";
 
-function Game({ name, roomId }) {
+function GamePage({ name, roomId }) {
   const [waiting, setWaiting] = useState(false);
   const [selectedCoords, setSelectedCoords] = useState(null);
   const [correctCoords, setCorrectCoords] = useState();
@@ -77,4 +78,4 @@ function Game({ name, roomId }) {
   );
 }
 
-export default Game;
+export default GamePage;

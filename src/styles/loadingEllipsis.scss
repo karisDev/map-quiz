@@ -5,6 +5,15 @@
   align-items: center;
   justify-content: center;
   background-color: #001220;
+  animation: lds-appear 0.5s ease-in;
+  @keyframes lds-appear {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 .ldsEllipsis {
   display: inline-block;
