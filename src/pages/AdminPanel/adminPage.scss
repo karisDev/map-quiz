@@ -183,7 +183,7 @@
       .question__btn {
         height: 50px;
         width: 200px;
-        background-color: #f0ae45;
+        background-color: #2196f3;
         border-radius: 5px;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -213,7 +213,7 @@
     margin-bottom: 100px;
     .leaderboardTitle {
       margin-top: 20px;
-      color: #4f5561;
+      color: #2196f3;
       font-size: 32px;
       text-align: center;
       font-weight: bold;
@@ -267,7 +267,11 @@
     gap: 24px;
     background-color: $block-bg-color;
     border-radius: 10px;
-    color: #4f5561;
+    color: #2196f3;
+    h2 {
+      font-weight: 500;
+      color: #4f5561;
+    }
   }
   .map {
     border-radius: 10px;
