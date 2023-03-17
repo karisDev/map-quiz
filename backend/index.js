@@ -57,6 +57,7 @@ io.on("connection", (socket) => {
 
           players.splice(playerIndex, 1);
 
+          emitPlayers();
           console.log("ran timeout");
         }
       }, DELETE_PLAYER_TIMEOUT_MS);

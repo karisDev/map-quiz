@@ -1,10 +1,4 @@
-import {
-  MapContainer,
-  TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-} from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import checkPng from "../assets/icons/check.png";
@@ -15,9 +9,7 @@ const AdminMap = ({ points, correctPoint }) => {
   console.log(points, correctPoint);
 
   function Events() {
-    const map = useMapEvents({
-      click: (e) => {},
-    });
+    const map = useMap();
 
     const allPoints = points.reduce((acc, point) => {
       if (point.position) {
