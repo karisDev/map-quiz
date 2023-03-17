@@ -63,18 +63,24 @@ const AdminPage = ({ roomId }) => {
             {hideScores ? "Show" : "Hide"} scores
           </button>
         </p>
-        {players.map((player) =>
+        {players.map((player, index) =>
           player.name == "karisDev (admin)" ? (
-            <div className="player" key={player.id}>
-              <div className="greenCircle"></div>
+            <div className="player" key={index}>
+              <div className="status green"></div>
               <p className="playerName">
                 {player.name} {player.disconnected && "(disconnected)"}
               </p>
             </div>
           ) : (
-            <div className="player" key={player.id}>
+            <div className="player" key={index}>
               <div
-                className={player.answered ? "greenCircle" : "redCircle"}
+                className={`status ${
+                  player.answered || player.name == "karisDev (admin)"
+                    ? "green"
+                    : player.disconnected
+                    ? "red"
+                    : "yellow"
+                }`}
               ></div>
               <p className="playerName">
                 {player.name} {player.disconnected && "(disconnected)"}
@@ -163,11 +169,8 @@ const AdminPage = ({ roomId }) => {
           )}
           {view == views.map && (
             <AdminMap
-              pointsToShow={players.map((player) => {
-                return {
-                  position: player.selectedCoords,
-                  name: player.name,
-                };
+              points={players.map((player) => {
+                return { position: player.selectedCoords, name: player.name };
               })}
               correctPoint={correctPoint && correctPoint.answer}
             />

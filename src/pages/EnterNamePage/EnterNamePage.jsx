@@ -94,7 +94,7 @@ const EnterNamePage = ({ nameSubmit, initialRoomId }) => {
           <h1>English quiz</h1>
           <label htmlFor="roomCode">Room code</label>
           <input
-            autoComplete={false}
+            autoComplete="false"
             id="roomCode"
             placeholder="Room code"
             value={roomId}
@@ -104,7 +104,7 @@ const EnterNamePage = ({ nameSubmit, initialRoomId }) => {
           />
           <label htmlFor="teamName">Team name</label>
           <input
-            autoComplete={false}
+            autoComplete="false"
             id="teamName"
             placeholder="Write your team name"
             onChange={(e) => setName(e.target.value)}

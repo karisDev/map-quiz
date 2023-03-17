@@ -11,17 +11,32 @@ import checkPng from "../assets/icons/check.png";
 import markPng from "../assets/icons/mark.png";
 
 // pointsToShow: {position, name: string}[]
-const AdminMap = ({ pointsToShow, correctPoint }) => {
-  console.log(pointsToShow, correctPoint);
+const AdminMap = ({ points, correctPoint }) => {
+  console.log(points, correctPoint);
 
   function Events() {
-    const map = useMapEvents({});
+    const map = useMapEvents({
+      click: (e) => {},
+    });
+
+    const allPoints = points.reduce((acc, point) => {
+      if (point.position) {
+        acc.push(point.position);
+      }
+      return acc;
+    }, []);
+
+    if (correctPoint) allPoints.push(correctPoint);
+
+    console.log("allPoints", allPoints);
+    if (allPoints.length > 0) map.fitBounds(allPoints);
+    else map.setView([37.8, -96], 4);
   }
 
   return (
-    <MapContainer className="map" center={[37.8, -96]} zoom={4}>
+    <MapContainer className="map">
       <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {pointsToShow.map(
+      {points.map(
         (point, index) =>
           point.position && (
             <Marker
@@ -59,6 +74,7 @@ const AdminMap = ({ pointsToShow, correctPoint }) => {
           <Popup>Correct Point</Popup>
         </Marker>
       )}
+      <Events />
     </MapContainer>
   );
 };
