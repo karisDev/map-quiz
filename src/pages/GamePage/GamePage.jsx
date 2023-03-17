@@ -3,6 +3,7 @@ import Map from "../../components/Map";
 import { playerId, socket } from "../../service/socket";
 import { useEffect } from "react";
 import "./gamePage.scss";
+import { useMemo } from "react";
 
 function GamePage({ name, roomId }) {
   const [waiting, setWaiting] = useState(false);
@@ -10,6 +11,7 @@ function GamePage({ name, roomId }) {
   const [correctCoords, setCorrectCoords] = useState();
   const [showScores, setShowScores] = useState(false);
   const [playerInfo, setPlayerInfo] = useState({});
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   useEffect(() => {
     socket.emit("join", { name: name, roomId: roomId });
@@ -22,7 +24,8 @@ function GamePage({ name, roomId }) {
 
     socket.on("players", (players) => {
       const player = players.find((p) => p.id === playerId);
-      console.log(player);
+      if (!player) location.reload();
+
       setPlayerInfo(player);
     });
 
@@ -49,10 +52,55 @@ function GamePage({ name, roomId }) {
     setSelectedCoords(position);
   };
 
+  const MapComponent = useMemo(
+    () => (
+      <Map
+        position={selectedCoords}
+        setPosition={updatePosition}
+        correctPosition={correctCoords}
+      />
+    ),
+    [selectedCoords, correctCoords]
+  );
+
+  useEffect(() => {
+    const tryEnterFullscreen = () => {
+      const elem = document.querySelector("#root");
+
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      }
+    };
+
+    const handleFullscreenChange = () => {
+      console.log("fullscreenchange", document.fullscreenElement);
+      setIsFullScreen(document.fullscreenElement !== null);
+    };
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    try {
+      tryEnterFullscreen();
+    } catch (e) {
+      console.log("Fullscreen not supported");
+    }
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
   return (
     <>
       {showScores && (
-        <div className="scoresPopupWrapper">
+        <div
+          className={`scoresPopupWrapper ${isFullScreen ? "fullscreen" : ""}`}
+        >
           <div className="scoresPopup">
             <div className="header">
               <p className="teamName">{playerInfo.name}</p>
@@ -66,11 +114,7 @@ function GamePage({ name, roomId }) {
           </div>
         </div>
       )}
-      <Map
-        position={selectedCoords}
-        setPosition={updatePosition}
-        correctPosition={correctCoords}
-      />
+      {MapComponent}
       <button className="mapSubmit" disabled={waiting} onClick={onSubmitCoords}>
         {waiting ? "Waiting for players" : "Confirm choice"}
       </button>

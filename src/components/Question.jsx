@@ -87,7 +87,11 @@ const Question = ({ onRevealAnswer, resetState }) => {
         <h2 className="question__title">{question.question}</h2>
       </div>
       <div className="question__body">
-        <img className="question__img" src={question.imgSrc} alt={question} />
+        <img
+          className="question__img"
+          src={question.imgSrc}
+          alt={question.question}
+        />
       </div>
       <div className="question__footer">
         <button className="question__btn" onClick={prevQuestion}>

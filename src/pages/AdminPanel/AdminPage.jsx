@@ -54,9 +54,24 @@ const AdminPage = ({ roomId }) => {
   return (
     <div className="adminPanel">
       <div className="players">
-        <p className="playersTitle">Players</p>
-        {players.map((player) => {
-          return (
+        <p className="playersTitle">
+          Players
+          <button
+            className="hideScores"
+            onClick={() => setHideScores(!hideScores)}
+          >
+            {hideScores ? "Show" : "Hide"} scores
+          </button>
+        </p>
+        {players.map((player) =>
+          player.name == "karisDev (admin)" ? (
+            <div className="player" key={player.id}>
+              <div className="greenCircle"></div>
+              <p className="playerName">
+                {player.name} {player.disconnected && "(disconnected)"}
+              </p>
+            </div>
+          ) : (
             <div className="player" key={player.id}>
               <div
                 className={player.answered ? "greenCircle" : "redCircle"}
@@ -80,101 +95,103 @@ const AdminPage = ({ roomId }) => {
                 X
               </button>
             </div>
-          );
-        })}
-
-        <button
-          className="hideScores"
-          onClick={() => setHideScores(!hideScores)}
-        >
-          {hideScores ? "Show" : "Hide"} scores
-        </button>
-        <button
-          className="mainButton"
-          onClick={() =>
-            setView((view) =>
-              view == views.leaderboard ? views.question : views.leaderboard
-            )
-          }
-        >
-          {view === views.leaderboard ? "Hide" : "Show"} leaderboard
-        </button>
-        <button
-          className="mainButton"
-          onClick={() =>
-            setView((view) => (view == views.map ? views.question : views.map))
-          }
-        >
-          {view == views.map ? "Hide" : "Show"} map
-        </button>
-        <button
-          className="mainButton"
-          onClick={() =>
-            setView((view) =>
-              view == views.qrCode ? views.question : views.qrCode
-            )
-          }
-        >
-          {view == views.qrCode ? "Hide" : "Show"} QR code
-        </button>
+          )
+        )}
       </div>
-      {view == views.leaderboard && (
-        <div className="leaderboard">
-          <p className="leaderboardTitle">Leaderboard</p>
-          {players
-            .sort((a, b) => b.score - a.score)
-            .filter((player) => player.name !== "Karis")
-            .map((player, index) => {
-              return (
-                <div className="player" key={player.id}>
-                  <p className="playerName">
-                    <span>#{index + 1}</span> {player.name}
-                  </p>
-                  <p className="playerScore">
-                    {
-                      // оставить целую часть
-                      player.score - (player.score % 1)
-                    }
-                  </p>
-                </div>
-              );
-            })}
-        </div>
-      )}
-      {view == views.map && players && (
-        <AdminMap
-          pointsToShow={players.map((player) => {
-            if (!player.selectedCoords) {
-              return {
-                position: [0, 0],
-                name: player.name,
-              };
+      <div className="quizView">
+        <div className="nav">
+          <button
+            className={`navButton ${view == views.question ? "active" : ""}`}
+            onClick={() => setView(views.question)}
+          >
+            Question
+          </button>
+          <button
+            className={`navButton ${view == views.leaderboard ? "active" : ""}`}
+            onClick={() =>
+              setView((view) =>
+                view == views.leaderboard ? views.question : views.leaderboard
+              )
             }
-            return {
-              position: player.selectedCoords,
-              name: player.name,
-            };
-          })}
-          correctPoint={correctPoint ? correctPoint : [0, 0]}
-        />
-      )}
-      {view == views.qrCode && (
-        <div className="qrCode">
-          <h1>Scan to join</h1>
-          <QRCode
-            size={350}
-            bgColor="#eee"
-            value={`http://138.124.180.37/?room=${roomId}`}
-          />
-          <h2>Room ID: {roomId}</h2>
+          >
+            Leaderboard
+          </button>
+          <button
+            className={`navButton ${view == views.map ? "active" : ""}`}
+            onClick={() =>
+              setView((view) =>
+                view == views.map ? views.question : views.map
+              )
+            }
+          >
+            Map
+          </button>
+          <button
+            className={`navButton ${view == views.qrCode ? "active" : ""}`}
+            onClick={() =>
+              setView((view) =>
+                view == views.qrCode ? views.question : views.qrCode
+              )
+            }
+          >
+            QR code
+          </button>
         </div>
-      )}
-      <div
-        style={{
-          display: view == views.question ? "block" : "none",
-        }}
-      >
-        <Question onRevealAnswer={revealAnswer} resetState={resetState} />
+        <div className="body">
+          {view == views.leaderboard && (
+            <div className="leaderboard">
+              <p className="leaderboardTitle">Leaderboard</p>
+              {players
+                .sort((a, b) => b.score - a.score)
+                .filter((player) => player.name !== "karisDev (admin)")
+                .map((player, index) => {
+                  return (
+                    <div className="player" key={player.id}>
+                      <p className="playerName">
+                        <span>#{index + 1}</span> {player.name}
+                      </p>
+                      <p className="playerScore">
+                        {
+                          // оставить целую часть
+                          player.score - (player.score % 1)
+                        }
+                      </p>
+                    </div>
+                  );
+                })}
+            </div>
+          )}
+          {view == views.map && (
+            <AdminMap
+              pointsToShow={players.map((player) => {
+                return {
+                  position: player.selectedCoords,
+                  name: player.name,
+                };
+              })}
+              correctPoint={correctPoint && correctPoint.answer}
+            />
+          )}
+          {view == views.qrCode && (
+            <div className="qrCode">
+              <h1>Scan to join</h1>
+              <QRCode
+                size={350}
+                bgColor="transparent"
+                value={`http://138.124.180.37/?room=${roomId}`}
+              />
+              <h2>Room ID: "{roomId}"</h2>
+            </div>
+          )}
+          <div
+            style={{
+              height: "100%",
+              display: view == views.question ? "block" : "none",
+            }}
+          >
+            <Question onRevealAnswer={revealAnswer} resetState={resetState} />
+          </div>
+        </div>
       </div>
     </div>
   );

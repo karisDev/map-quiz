@@ -3,6 +3,9 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(10px);
   border-radius: 10px;
+  @media not all and (min-resolution: 0.001dpcm) {
+    background-color: #ffffffaf;
+  }
 }
 
 .mapSubmit {
@@ -24,7 +27,7 @@
   outline: none;
   &:disabled {
     @extend %glassmorphism;
-    background-color: rgba(255, 255, 255, 0.2);
+    // background-color: rgba(255, 255, 255, 0.2);
     // backdrop-filter: blur(10px);
     color: #333333;
     cursor: not-allowed;
@@ -39,6 +42,11 @@
 
 .scoresPopupWrapper {
   display: flex;
+  &.fullscreen {
+    .scoresPopup {
+      top: 48px;
+    }
+  }
 }
 
 .scoresPopup {
@@ -50,7 +58,7 @@
   position: absolute;
   right: 24px;
   left: 24px;
-  top: 24px;
+  top: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -58,6 +66,9 @@
   gap: 10px;
   animation: appear 0.25s ease-in-out;
   width: fit-content;
+  @media screen and (max-width: 500px) {
+    width: calc(100% - 24px - 24px);
+  }
   @keyframes appear {
     0% {
       opacity: 0;
@@ -68,8 +79,7 @@
   }
 
   .header {
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
     overflow: hidden;
     align-items: center;
     gap: 10px;
