@@ -1,5 +1,4 @@
 import { useState } from "react";
-import applePark from "../assets/questions/apple-park.jpg";
 import capitol from "../assets/questions/capitol.jpg";
 import esb from "../assets/questions/esb.jpg";
 import esb2 from "../assets/questions/esb2.jpg";
@@ -7,6 +6,8 @@ import goldenGate from "../assets/questions/golden-gate.jpg";
 import goldenGate2 from "../assets/questions/golden-gate2.jpg";
 
 import grandCanyon from "../assets/questions/grand-canyon.jpg";
+import applePark from "../assets/questions/apple-park.jpg";
+import applePark2 from "../assets/questions/apple-park2.jpg";
 import gta from "../assets/questions/gta.jpg";
 import gta2 from "../assets/questions/gta2.jpg";
 import rushmore from "../assets/questions/rushmore.jpg";
@@ -19,56 +20,10 @@ import apollo from "../assets/questions/apollo.webp";
 import apollo2 from "../assets/questions/apollo2.jpg";
 import mcdonalds from "../assets/questions/mcdonalds.jpg";
 import mcdonalds2 from "../assets/questions/mcdonalds2.jpg";
+import declaration from "../assets/questions/declaration.jpg";
+import declaration2 from "../assets/questions/declaration2.webp";
 import burningMan from "../assets/questions/burning-man.jpg";
 import burningMan2 from "../assets/questions/burning-man2.jpg";
-
-// const questionPool = [
-//   {
-//     question: "Statue of Liberty National Monument",
-//     answer: [40.6892, -74.0445],
-//     imgSrc: statueOfLiberty,
-//   },
-//   {
-//     question: "Golden Gate Bridge",
-//     answer: [37.8199, -122.4783],
-//     imgSrc: goldenGate,
-//   },
-//   {
-//     question: "Mount Rushmore National Memorial",
-//     answer: [43.8791, -103.4591],
-//     imgSrc: rushmore,
-//   },
-//   {
-//     question: "Maze bank tower",
-//     answer: [34.05082, -118.25437],
-//     imgSrc: gta,
-//   },
-//   {
-//     question: "Empire State Building",
-//     answer: [40.7484, -73.9857],
-//     imgSrc: esb,
-//   },
-//   {
-//     question: "United States Capitol",
-//     answer: [38.8895, -77.0091],
-//     imgSrc: capitol,
-//   },
-//   {
-//     question: "Grand Canyon",
-//     answer: [36.1069, -112.1126],
-//     imgSrc: grandCanyon,
-//   },
-//   {
-//     question: "Space Needle",
-//     answer: [47.6205, -122.3493],
-//     imgSrc: spaceNeedle,
-//   },
-//   {
-//     question: "Apple Park",
-//     answer: [37.335, -122.0087],
-//     imgSrc: applePark,
-//   },
-// ];
 
 const questionPool = [
   {
@@ -80,19 +35,28 @@ const questionPool = [
       "102-story skyscrapper when people were still using horses and bird feathers",
   },
   {
+    question: "Mount Rushmore National Memorial",
+    answer: [43.8791, -103.4591],
+    questionImg: rushmore,
+    popupImg: rushmore2,
+    popupText:
+      "Some people criticized the project as a waste of taxpayer money during the Great Depression. Was never finnished because of the lack of funding",
+  },
+  {
+    question: "The signing of the Declaration of Independence",
+    answer: [39.94961, -75.150282],
+    questionImg: declaration,
+    popupImg: declaration2,
+    popupText:
+      "July 2, 1776 was an actual independence day, when 56 men signed it. But declaration was officially drafted two days later, on July 4. And now people mistakenly celebrate July 4 as an independence day.",
+  },
+  {
     question: "The Golden Gate Bridge",
     answer: [37.8199, -122.4783],
     questionImg: goldenGate,
     popupImg: goldenGate2,
     popupText:
       "The most photographed bridge in the world, was designed by a man, who had no prior experience in designing bridges, but was a showman and a promoter",
-  },
-  {
-    question: "Mount Rushmore National Memorial",
-    answer: [43.8791, -103.4591],
-    questionImg: rushmore,
-    popupImg: rushmore2,
-    popupText: "Was never finnished because of the lack of funding",
   },
   {
     question: "Boeing Everett Factory",
@@ -110,6 +74,14 @@ const questionPool = [
     popupImg: apollo2,
     popupText:
       "They were rescued by USS Hornet. Today this mission would cost around $288.1 billion US dollars.",
+  },
+  {
+    question: "Apple park",
+    answer: [37.335, -122.0087],
+    questionImg: applePark,
+    popupImg: applePark2,
+    popupText:
+      "It runs on 100% renewable energy thanks to a roof fully covered in solar panels. The average salary inside this complex is $150,000",
   },
   {
     question: "Hollywood Sign",
@@ -132,7 +104,16 @@ const questionPool = [
     answer: [40.7829, -119.2057],
     questionImg: burningMan,
     popupImg: burningMan2,
-    popupText: "Everything is for free and made by the festival members",
+    popupText:
+      "This event has a no-money policy, everything is absolutely free. All the artwork and restaurants are made by visitors. Was an insipration for the first-ever Google Doodle",
+  },
+  {
+    question: "Space Needle",
+    answer: [47.6205, -122.3493],
+    questionImg: spaceNeedle,
+    popupImg: spaceNeedle,
+    popupText:
+      "This building is actually a private property of one family. On April fools, 911 lines were completely blocked because someone said it was collapsed",
   },
 ];
 
