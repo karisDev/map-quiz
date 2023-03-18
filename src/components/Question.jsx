@@ -2,63 +2,143 @@ import { useState } from "react";
 import applePark from "../assets/questions/apple-park.jpg";
 import capitol from "../assets/questions/capitol.jpg";
 import esb from "../assets/questions/esb.jpg";
+import esb2 from "../assets/questions/esb2.jpg";
 import goldenGate from "../assets/questions/golden-gate.jpg";
+import goldenGate2 from "../assets/questions/golden-gate2.jpg";
+
 import grandCanyon from "../assets/questions/grand-canyon.jpg";
 import gta from "../assets/questions/gta.jpg";
+import gta2 from "../assets/questions/gta2.jpg";
 import rushmore from "../assets/questions/rushmore.jpg";
+import rushmore2 from "../assets/questions/rushmore2.png";
 import spaceNeedle from "../assets/questions/space-needle.jpg";
 import statueOfLiberty from "../assets/questions/statue-of-liberty.webp";
+import boeing from "../assets/questions/boeing.jpg";
+import boeing2 from "../assets/questions/boeing2.jpg";
+import apollo from "../assets/questions/apollo.webp";
+import apollo2 from "../assets/questions/apollo2.jpg";
+import mcdonalds from "../assets/questions/mcdonalds.jpg";
+import mcdonalds2 from "../assets/questions/mcdonalds2.jpg";
+import burningMan from "../assets/questions/burning-man.jpg";
+import burningMan2 from "../assets/questions/burning-man2.jpg";
+
+// const questionPool = [
+//   {
+//     question: "Statue of Liberty National Monument",
+//     answer: [40.6892, -74.0445],
+//     imgSrc: statueOfLiberty,
+//   },
+//   {
+//     question: "Golden Gate Bridge",
+//     answer: [37.8199, -122.4783],
+//     imgSrc: goldenGate,
+//   },
+//   {
+//     question: "Mount Rushmore National Memorial",
+//     answer: [43.8791, -103.4591],
+//     imgSrc: rushmore,
+//   },
+//   {
+//     question: "Maze bank tower",
+//     answer: [34.05082, -118.25437],
+//     imgSrc: gta,
+//   },
+//   {
+//     question: "Empire State Building",
+//     answer: [40.7484, -73.9857],
+//     imgSrc: esb,
+//   },
+//   {
+//     question: "United States Capitol",
+//     answer: [38.8895, -77.0091],
+//     imgSrc: capitol,
+//   },
+//   {
+//     question: "Grand Canyon",
+//     answer: [36.1069, -112.1126],
+//     imgSrc: grandCanyon,
+//   },
+//   {
+//     question: "Space Needle",
+//     answer: [47.6205, -122.3493],
+//     imgSrc: spaceNeedle,
+//   },
+//   {
+//     question: "Apple Park",
+//     answer: [37.335, -122.0087],
+//     imgSrc: applePark,
+//   },
+// ];
 
 const questionPool = [
   {
-    question: "Statue of Liberty National Monument",
-    answer: [40.6892, -74.0445],
-    imgSrc: statueOfLiberty,
+    question: "The Empire State Building",
+    answer: [40.7484, -73.9857],
+    questionImg: esb,
+    popupImg: esb2,
+    popupText:
+      "102-story skyscrapper when people were still using horses and bird feathers",
   },
   {
-    question: "Golden Gate Bridge",
+    question: "The Golden Gate Bridge",
     answer: [37.8199, -122.4783],
-    imgSrc: goldenGate,
+    questionImg: goldenGate,
+    popupImg: goldenGate2,
+    popupText:
+      "The most photographed bridge in the world, was designed by a man, who had no prior experience in designing bridges, but was a showman and a promoter",
   },
   {
     question: "Mount Rushmore National Memorial",
     answer: [43.8791, -103.4591],
-    imgSrc: rushmore,
+    questionImg: rushmore,
+    popupImg: rushmore2,
+    popupText: "Was never finnished because of the lack of funding",
   },
   {
-    question: "Maze bank tower",
-    answer: [34.05082, -118.25437],
-    imgSrc: gta,
+    question: "Boeing Everett Factory",
+    answer: [47.9283, -122.2498],
+    questionImg: boeing,
+    popupImg: boeing2,
+    popupText:
+      "The largest building in the world by volume (13.3 million cubic meters). Can fit 12 Boeing 747s at a time",
   },
   {
-    question: "Empire State Building",
-    answer: [40.7484, -73.9857],
-    imgSrc: esb,
+    question:
+      "Neil Armstrong's landing after the first-ever flight to the moon.",
+    answer: [13.316667, -169.15],
+    questionImg: apollo,
+    popupImg: apollo2,
+    popupText:
+      "They were rescued by USS Hornet. Today this mission would cost around $288.1 billion US dollars.",
   },
   {
-    question: "United States Capitol",
-    answer: [38.8895, -77.0091],
-    imgSrc: capitol,
+    question: "Hollywood Sign",
+    answer: [34.1341, -118.3217],
+    questionImg: gta,
+    popupImg: gta2,
+    popupText:
+      "The sign was originally built in 1923 to advertise a real estate development. It was originally supposed to read 'Hollywoodland'",
   },
   {
-    question: "Grand Canyon",
-    answer: [36.1069, -112.1126],
-    imgSrc: grandCanyon,
+    question: "The very first McDonald's",
+    answer: [33.942757, -118.130767],
+    questionImg: mcdonalds,
+    popupImg: mcdonalds2,
+    popupText:
+      "It was a BBQ drive-thru only restaurant, serving military personnel.",
   },
   {
-    question: "Space Needle",
-    answer: [47.6205, -122.3493],
-    imgSrc: spaceNeedle,
-  },
-  {
-    question: "Apple Park",
-    answer: [37.335, -122.0087],
-    imgSrc: applePark,
+    question: "The Burning Man festival",
+    answer: [40.7829, -119.2057],
+    questionImg: burningMan,
+    popupImg: burningMan2,
+    popupText: "Everything is for free and made by the festival members",
   },
 ];
 
 const Question = ({ onRevealAnswer, resetState }) => {
   const [question, setQuestion] = useState(questionPool[0]);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const nextQuestion = () => {
     const nextQuestionIndex = questionPool.indexOf(question) + 1;
@@ -82,32 +162,60 @@ const Question = ({ onRevealAnswer, resetState }) => {
   };
 
   return (
-    <div className="question">
-      <div className="question__header">
-        <h2 className="question__title">{question.question}</h2>
+    <>
+      <div
+        className={`questionPopupWrapper ${isPopupOpen ? "" : "hidden"}`}
+        onClick={() => setIsPopupOpen(false)}
+      >
+        <div className="popup" onClick={(e) => e.stopPropagation()}>
+          <h2 className="popup__title">{question.question}</h2>
+          <p className="popup__text">{question.popupText}</p>
+          <img src={question.popupImg} alt="image" className="popup__img" />
+        </div>
       </div>
-      <div className="question__body">
-        <img
-          className="question__img"
-          src={question.imgSrc}
-          alt={question.question}
-        />
+      <div className="question">
+        <div className="question__header">
+          <h2 className="question__title">{question.question}</h2>
+        </div>
+        <div className="question__body">
+          <img
+            className="question__img"
+            src={question.questionImg}
+            alt={question.question}
+          />
+        </div>
+        <div className="question__footer">
+          <button
+            className="question__btn"
+            onClick={prevQuestion}
+            disabled={questionPool.indexOf(question) === 0}
+          >
+            Prev
+          </button>
+          <button className="question__btn" onClick={revealAnswer}>
+            Reveal answer
+          </button>
+          <button
+            className="question__btn"
+            onClick={() => setIsPopupOpen(true)}
+          >
+            Details
+          </button>
+          <button className="question__btn" onClick={resetState}>
+            Reset map
+          </button>
+          <button
+            className="question__btn"
+            onClick={nextQuestion}
+            disabled={
+              questionPool.indexOf(question) === questionPool.length - 1
+            }
+          >
+            Next
+          </button>
+        </div>
       </div>
-      <div className="question__footer">
-        <button className="question__btn" onClick={prevQuestion}>
-          Prev
-        </button>
-        <button className="question__btn" onClick={revealAnswer}>
-          Reveal Answer
-        </button>
-        <button className="question__btn" onClick={resetState}>
-          Reset markers
-        </button>
-        <button className="question__btn" onClick={nextQuestion}>
-          Next
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

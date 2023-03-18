@@ -1,0 +1,401 @@
+$block-bg-color: #fff;
+$block-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+%adminSection {
+  background-color: #e9e9e9;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  color: #4f5561;
+  box-shadow: $block-box-shadow;
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(10px);
+}
+
+.adminBg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.adminPanel {
+  background-image: url(./bg.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  // background-color: #001220;
+  // background-color: #fff;
+  height: 100%;
+  display: grid;
+  padding: 10px;
+  gap: 10px;
+  grid-template-columns: 400px 1fr;
+  .players {
+    // background-color: $block-bg-color;
+    @extend %adminSection;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    padding: 10px;
+    gap: 5px;
+    .playersTitle {
+      display: flex;
+      padding-bottom: 8px;
+      align-items: end;
+      // margin: 0 8px;
+      height: 45px;
+      font-size: 24px;
+      font-weight: bold;
+      .hideScores {
+        background: none;
+        border: none;
+        outline: none;
+        border-radius: 6px;
+        color: #000;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 500;
+        height: min-content;
+        color: #2196f3;
+        margin-left: auto;
+        font-size: 16px;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+    .yellow {
+      background-color: #ff9100;
+    }
+    .green {
+      background-color: #03d20b;
+    }
+    .red {
+      background-color: #ff4545;
+    }
+
+    .player {
+      background-color: #fff;
+      color: #4f5561;
+      border-radius: 6px;
+      min-height: 48px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      animation: fadeIn 0.3s ease;
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      .playerName {
+        word-wrap: break-word;
+        overflow: hidden;
+        flex: 1;
+        text-transform: capitalize;
+        font-size: 18px;
+        font-weight: 500;
+        margin-right: 5px;
+      }
+      .playerScore {
+        margin-right: 10px;
+        margin-left: auto;
+      }
+      .status {
+        margin-right: 8px;
+        // circle
+        // margin-left: 10px;
+        // height: 10px;
+        // width: 10px;
+        // border-radius: 50%;
+
+        // line
+        width: 6px;
+        height: 100%;
+      }
+      .playerDelete {
+        display: none;
+        cursor: pointer;
+        background-color: #f44336;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        border: none;
+        margin-right: 10px;
+      }
+      &:hover {
+        .playerDelete {
+          display: block;
+        }
+      }
+    }
+
+    .statusHelper {
+      border: 1px solid #ccc;
+      width: 100%;
+      background-color: #fff;
+      border-radius: 6px;
+      height: 40px;
+      margin-top: auto;
+      display: flex;
+      justify-content: space-evenly;
+      .group {
+        align-items: center;
+        display: flex;
+      }
+      .circle {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      p {
+        text-transform: capitalize;
+        margin-left: 6px;
+      }
+    }
+  }
+  .quizView {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 10px;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    .nav {
+      @extend %adminSection;
+      margin: 0 auto;
+      display: flex;
+      width: fit-content;
+      padding: 5px;
+      gap: 5px;
+      .navButton {
+        background-color: transparent;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 16px;
+        color: #4f5561;
+        border: none;
+        padding: 10px 20px;
+        transition: all 0.15s ease-out;
+        &:hover {
+          background-color: #fff;
+        }
+        &.active {
+          color: #2196f3;
+          background-color: #fff;
+        }
+      }
+    }
+    .body {
+      display: flex;
+      justify-content: center;
+      flex: 1;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      .map {
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .question {
+    @extend %adminSection;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: $block-box-shadow;
+    padding: 10px;
+    .question__header {
+      display: flex;
+      .question__title {
+        border-radius: 10px;
+        margin: 0 auto;
+        color: #000;
+        text-align: center;
+        font-size: 40px;
+        font-weight: 500;
+      }
+    }
+    .question__body {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      .question__img {
+        border: 5px solid #fff;
+        max-width: 100%;
+        height: 78vh;
+        margin: auto;
+        border-radius: 10px;
+      }
+    }
+    .question__footer {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      .question__btn {
+        border: none;
+        outline: none;
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc;
+        height: 40px;
+        width: 150px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        text-transform: capitalize;
+        &:disabled {
+          color: #ccc;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  .questionPopupWrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #00000080;
+    animation: question-popup 0.2s linear;
+    @keyframes question-popup {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+    .popup {
+      background-color: #fff;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      width: fit-content;
+      display: grid;
+      gap: 10px;
+      grid-template-rows: auto auto 1fr;
+      flex-direction: column;
+      max-width: 80vw;
+
+      .popup__title {
+        color: #2196f3;
+        font-size: 32px;
+      }
+      .popup__text {
+        font-size: 24px;
+      }
+      .popup__img {
+        margin: 0 auto;
+        margin-top: auto;
+        max-width: 100%;
+        min-width: 60vw;
+        max-height: 70vh;
+        border-radius: 10px;
+        border: 1px solid #ccc;
+      }
+    }
+    &.hidden {
+      display: none;
+    }
+  }
+  .leaderboard {
+    @extend %adminSection;
+    margin: auto;
+    width: 800px;
+    height: fit-content;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: $block-box-shadow;
+    gap: 10px;
+    .leaderboardTitle {
+      border-radius: 10px;
+      margin: 0 auto;
+      padding: 5px 20px;
+      text-align: center;
+      font-size: 40px;
+      font-weight: bold;
+    }
+    .player {
+      color: #000;
+      width: 600px;
+      height: 46px;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-radius: 8px;
+      .playerName {
+        flex: 1;
+        text-transform: capitalize;
+        font-size: 24px;
+        font-weight: 500;
+        font-weight: bold;
+        span {
+          font-size: 24px;
+          font-weight: normal;
+        }
+      }
+      .playerScore {
+        margin-right: 10px;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      &:nth-of-type(1) {
+        background-color: #fbae3c;
+      }
+      &:nth-of-type(2) {
+        background-color: #e1685e;
+        color: #fff;
+      }
+      &:nth-of-type(3) {
+        background-color: #3d3056;
+        color: #fff;
+      }
+    }
+  }
+  .qrCode {
+    @extend %adminSection;
+    margin: auto 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: fit-content;
+    gap: 24px;
+    // background-color: $block-bg-color;
+    border-radius: 10px;
+    padding: 20px 40px;
+    color: #2196f3;
+    h2 {
+      font-weight: 500;
+      color: #4f5561;
+    }
+  }
+  .map {
+    border-radius: 10px;
+  }
+}
