@@ -27,44 +27,12 @@ import burningMan2 from "../assets/questions/burning-man2.jpg";
 
 const questionPool = [
   {
-    question: "The Empire State Building",
-    answer: [40.7484, -73.9857],
-    questionImg: esb,
-    popupImg: esb2,
-    popupText:
-      "102-story skyscrapper when people were still using horses and bird feathers",
-  },
-  {
-    question: "Mount Rushmore National Memorial",
-    answer: [43.8791, -103.4591],
-    questionImg: rushmore,
-    popupImg: rushmore2,
-    popupText:
-      "Some people criticized the project as a waste of taxpayer money during the Great Depression. Was never finnished because of the lack of funding",
-  },
-  {
     question: "The signing of the Declaration of Independence",
     answer: [39.94961, -75.150282],
     questionImg: declaration,
     popupImg: declaration2,
     popupText:
       "July 2, 1776 was an actual independence day, when 56 men signed it. But declaration was officially drafted two days later, on July 4. And now people mistakenly celebrate July 4 as an independence day.",
-  },
-  {
-    question: "The Golden Gate Bridge",
-    answer: [37.8199, -122.4783],
-    questionImg: goldenGate,
-    popupImg: goldenGate2,
-    popupText:
-      "The most photographed bridge in the world, was designed by a man, who had no prior experience in designing bridges, but was a showman and a promoter",
-  },
-  {
-    question: "Boeing Everett Factory",
-    answer: [47.9283, -122.2498],
-    questionImg: boeing,
-    popupImg: boeing2,
-    popupText:
-      "The largest building in the world by volume (13.3 million cubic meters). Can fit 12 Boeing 747s at a time",
   },
   {
     question:
@@ -76,20 +44,12 @@ const questionPool = [
       "They were rescued by USS Hornet. Today this mission would cost around $288.1 billion US dollars.",
   },
   {
-    question: "Apple park",
-    answer: [37.335, -122.0087],
-    questionImg: applePark,
-    popupImg: applePark2,
+    question: "The Empire State Building",
+    answer: [40.7484, -73.9857],
+    questionImg: esb,
+    popupImg: esb2,
     popupText:
-      "It runs on 100% renewable energy thanks to a roof fully covered in solar panels. The average salary inside this complex is $150,000",
-  },
-  {
-    question: "Hollywood Sign",
-    answer: [34.1341, -118.3217],
-    questionImg: gta,
-    popupImg: gta2,
-    popupText:
-      "The sign was originally built in 1923 to advertise a real estate development. It was originally supposed to read 'Hollywoodland'",
+      "102-story skyscrapper when people were still using horses and bird feathers",
   },
   {
     question: "The very first McDonald's",
@@ -98,6 +58,22 @@ const questionPool = [
     popupImg: mcdonalds2,
     popupText:
       "It was a BBQ drive-thru only restaurant, serving military personnel.",
+  },
+  {
+    question: "The Golden Gate Bridge",
+    answer: [37.8199, -122.4783],
+    questionImg: goldenGate,
+    popupImg: goldenGate2,
+    popupText:
+      "The most photographed bridge in the world, was designed by a man, who had no prior experience in designing bridges, but was a showman and a promoter",
+  },
+  {
+    question: "Hollywood Sign",
+    answer: [34.1341, -118.3217],
+    questionImg: gta,
+    popupImg: gta2,
+    popupText:
+      "The sign was originally built in 1923 to advertise a real estate development. It was originally supposed to read 'Hollywoodland'",
   },
   {
     question: "The Burning Man festival",
@@ -114,6 +90,30 @@ const questionPool = [
     popupImg: spaceNeedle,
     popupText:
       "This building is actually a private property of one family. On April fools, 911 lines were completely blocked because someone said it was collapsed",
+  },
+  {
+    question: "Mount Rushmore National Memorial",
+    answer: [43.8791, -103.4591],
+    questionImg: rushmore,
+    popupImg: rushmore2,
+    popupText:
+      "Some people criticized the project as a waste of taxpayer money during the Great Depression. Was never finnished because of the lack of funding",
+  },
+  {
+    question: "Boeing Everett Factory",
+    answer: [47.9283, -122.2498],
+    questionImg: boeing,
+    popupImg: boeing2,
+    popupText:
+      "The largest building in the world by volume (13.3 million cubic meters). Can fit 12 Boeing 747s at a time",
+  },
+  {
+    question: "Apple park",
+    answer: [37.335, -122.0087],
+    questionImg: applePark,
+    popupImg: applePark2,
+    popupText:
+      "It runs on 100% renewable energy thanks to a roof fully covered in solar panels. The average salary inside this complex is $150,000",
   },
 ];
 
