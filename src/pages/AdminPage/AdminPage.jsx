@@ -154,7 +154,7 @@ const AdminPage = ({ roomId }) => {
               )
             }
           >
-            QR code
+            QR Code
           </button>
         </div>
         <div className="body">
