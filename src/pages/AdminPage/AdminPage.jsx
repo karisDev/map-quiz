@@ -195,7 +195,9 @@ const AdminPage = ({ roomId }) => {
               <QRCode
                 size={350}
                 bgColor="transparent"
-                value={`http://138.124.180.37/?room=${roomId}`}
+                value={`${
+                  import.meta.env.VITE_WEBSITE_BASE_URL
+                }?room=${roomId}`}
               />
               <h2>Room ID: "{roomId}"</h2>
             </div>

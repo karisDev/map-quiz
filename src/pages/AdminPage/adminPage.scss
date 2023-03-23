@@ -1,10 +1,10 @@
 $block-bg-color: #fff;
 $block-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 %adminSection {
-  border: 1px solid rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   color: #4f5561;
-  background-color: rgba(240, 240, 240, 0.6);
+  background-color: rgba(243, 243, 243, 0.8);
   // background-color: #fff;
   // box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
@@ -40,7 +40,6 @@ $block-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding-bottom: 8px;
       align-items: end;
       // margin: 0 8px;
-      height: 45px;
       font-size: 24px;
       font-weight: bold;
       .hideScores {
@@ -330,7 +329,6 @@ $block-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     align-items: center;
     padding: 10px;
     border-radius: 10px;
-    box-shadow: $block-box-shadow;
     gap: 10px;
     .leaderboardTitle {
       border-radius: 10px;
