@@ -52,17 +52,6 @@ function GamePage({ name, roomId }) {
     setSelectedCoords(position);
   };
 
-  const MapComponent = useMemo(
-    () => (
-      <Map
-        position={selectedCoords}
-        setPosition={updatePosition}
-        correctPosition={correctCoords}
-      />
-    ),
-    [selectedCoords, correctCoords]
-  );
-
   useEffect(() => {
     const tryEnterFullscreen = () => {
       const elem = document.querySelector("#root");
@@ -114,7 +103,11 @@ function GamePage({ name, roomId }) {
           </div>
         </div>
       )}
-      {MapComponent}
+      <Map
+        position={selectedCoords}
+        setPosition={updatePosition}
+        correctPosition={correctCoords}
+      />
       <button className="mapSubmit" disabled={waiting} onClick={onSubmitCoords}>
         {waiting ? "Waiting for players" : "Confirm choice"}
       </button>

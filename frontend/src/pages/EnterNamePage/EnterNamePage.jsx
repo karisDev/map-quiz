@@ -96,7 +96,7 @@ const EnterNamePage = ({ nameSubmit, initialRoomId }) => {
           <input
             autoComplete="false"
             id="roomCode"
-            placeholder="Room code"
+            placeholder="12345"
             value={roomId}
             disabled={initialRoomId ? true : false}
             required
@@ -106,7 +106,7 @@ const EnterNamePage = ({ nameSubmit, initialRoomId }) => {
           <input
             autoComplete="false"
             id="teamName"
-            placeholder="Write your team name"
+            placeholder='enter "karis" to become an admin'
             onChange={(e) => setName(e.target.value)}
             value={name}
           />

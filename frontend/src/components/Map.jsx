@@ -12,7 +12,7 @@ import L from "leaflet";
 import checkPng from "../assets/icons/check.png";
 import markPng from "../assets/icons/mark.png";
 
-function Map({ correctPosition, position, setPosition }) {
+const Map = ({ correctPosition, position, setPosition }) => {
   function Events() {
     const map = useMapEvents({
       click: (e) => {

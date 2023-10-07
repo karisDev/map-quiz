@@ -28,6 +28,7 @@ function App() {
       setIsGame(true);
     }
   };
+
   return isAdmin ? (
     <Suspense fallback={<LoadingEllipsis />}>
       <AdminPanel roomId={roomId} />
