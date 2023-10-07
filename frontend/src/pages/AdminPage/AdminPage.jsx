@@ -196,7 +196,7 @@ const AdminPage = ({ roomId }) => {
                 size={350}
                 bgColor="transparent"
                 value={`${
-                  import.meta.env.VITE_WEBSITE_BASE_URL
+                  location.href
                 }?room=${roomId}`}
               />
               <h2>Room ID: "{roomId}"</h2>

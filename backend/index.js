@@ -5,6 +5,8 @@ import { createServer } from "http";
 const server = createServer(app);
 import { Server } from "socket.io";
 const io = new Server(server);
+import cors from "cors";
+app.use(cors());
 
 const players = [];
 /*
@@ -173,5 +175,5 @@ function emitPlayers() {
 
 const port = 3001;
 server.listen(port, () => {
-  console.log(`listening on *:${port}`);
+  console.log(`listening on :${port}`);
 });

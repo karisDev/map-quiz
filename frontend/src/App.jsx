@@ -29,6 +29,7 @@ function App() {
     }
   };
 
+  console.log("VITE_SOCKETIO_URL", import.meta.env.VITE_SOCKETIO_HOST)
   return isAdmin ? (
     <Suspense fallback={<LoadingEllipsis />}>
       <AdminPanel roomId={roomId} />

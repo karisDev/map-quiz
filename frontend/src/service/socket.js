@@ -12,7 +12,7 @@ if (!localStorage.getItem("uuid")) {
   localStorage.setItem("uuid", assignUUID());
 }
 
-export const socket = io(import.meta.env.VITE_SOCKETIO_HOST, {
+export const socket = io(":3001", {
   transports: ["websocket"],
   auth: {
     playerId: localStorage.getItem("uuid"),
