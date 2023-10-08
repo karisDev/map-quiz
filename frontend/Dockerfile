@@ -1,13 +1,12 @@
-FROM node:20-slim
+FROM node
 
-RUN mkdir /app && chown node:node /app
+RUN apt-get update    && apt-get install -y nginx
 WORKDIR /app
-
-USER node
-COPY --chown=node:node package.json ./
-
-RUN npm install
-
-COPY --chown=node:node . .
-EXPOSE 3000
-CMD ["npm", "run", "dev"]
+COPY . /app/
+EXPOSE 80
+RUN  npm install \
+    && npm run build \
+    && mkdir /var/www/html/map-quiz \
+    && cp -r dist/* /var/www/html/map-quiz \
+    && rm -rf /app
+CMD ["nginx","-g","daemon off;"]
